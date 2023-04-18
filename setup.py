@@ -12,6 +12,7 @@ def get_readme():
 def get_requires():
     requires = [
         'opencv-python>=4.5',
+        'tqdm>=4.63',
     ]
     return requires
 
