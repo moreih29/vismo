@@ -5,8 +5,8 @@ import torch.nn as nn
 from .base import BaseBackbone
 
 
-__all__ = ['Resnet18', 'Resnet34', 'Resnet50',
-           'Resnet101', 'Resnet152']
+__all__ = ['ResNet18', 'ResNet34', 'ResNet50',
+           'ResNet101', 'ResNet152']
 
 
 def conv3x3(in_planes, out_planes, stride=1, groups=1, dilation=1):
@@ -205,51 +205,56 @@ class ResNet(BaseBackbone):
         return self.conv1.weight.device
     
     
-class Resnet18(ResNet):
+class ResNet18(ResNet):
     def __init__(self, 
                  num_classes=1000, 
                  **kwargs,
                  ) -> None:
         super().__init__(block=BasicBlock,
                          layers=[2, 2, 2, 2],
-                         num_classes=num_classes)
+                         num_classes=num_classes,
+                         **kwargs)
         
 
-class Resnet34(ResNet):
+class ResNet34(ResNet):
     def __init__(self, 
                  num_classes=1000, 
                  **kwargs,
                  ) -> None:
         super().__init__(block=BasicBlock,
                          layers=[3, 4, 6, 3],
-                         num_classes=num_classes)
+                         num_classes=num_classes,
+                         **kwargs)
         
         
-class Resnet50(ResNet):
+class ResNet50(ResNet):
     def __init__(self, 
                  num_classes=1000, 
                  **kwargs,
                  ) -> None:
         super().__init__(block=Bottleneck,
                          layers=[3, 4, 6, 3],
-                         num_classes=num_classes)
+                         num_classes=num_classes,
+                         **kwargs)
         
         
-class Resnet101(ResNet):
+class ResNet101(ResNet):
     def __init__(self, 
                  num_classes=1000, 
                  **kwargs,
                  ) -> None:
         super().__init__(block=Bottleneck,
                          layers=[3, 4, 23, 3],
-                         num_classes=num_classes)
+                         num_classes=num_classes,
+                         **kwargs)
         
         
-class Resnet152(ResNet):
+class ResNet152(ResNet):
     def __init__(self, 
                  num_classes=1000, 
                  **kwargs,
                  ) -> None:
         super().__init__(block=Bottleneck,
                          layers=[3, 8, 36, 3],
-                         num_classes=num_classes)
+                         num_classes=num_classes,
+                         **kwargs)
