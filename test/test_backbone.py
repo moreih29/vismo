@@ -39,33 +39,33 @@ class ImageNet(Dataset):
         
 
 if __name__ == '__main__':
-    model = Resnet18(num_classes=1000).to('cuda:0')
+    model = DensNet121(num_classes=10).to('cuda:0')
     trs = torchvision.transforms.Compose([
         torchvision.transforms.ToTensor(),
-        torchvision.transforms.Resize((256, 256),
+        torchvision.transforms.Resize((32, 32),
                                       antialias=True),
     ])
-    # train_data = torchvision.datasets.CIFAR10(root='./data',
-    #                                           train=True,
-    #                                           download=True,
-    #                                           transform=trs)
-    # valid_data = torchvision.datasets.CIFAR10(root='./data',
-    #                                          train=False,
-    #                                          download=True,
-    #                                          transform=trs)
+    train_data = torchvision.datasets.CIFAR10(root='./data',
+                                              train=True,
+                                              download=True,
+                                              transform=trs)
+    valid_data = torchvision.datasets.CIFAR10(root='./data',
+                                             train=False,
+                                             download=True,
+                                             transform=trs)
     
-    CLASS_NAMES = [d.name for d in Path('/data/imagenet-mini/train').glob('*')]
-    train_paths = list(Path('/data/imagenet-mini/train').glob('*/*.JPEG'))
-    train_labels = [CLASS_NAMES.index(p.parent.name) for p in train_paths]
-    valid_paths = list(Path('/data/imagenet-mini/val').glob('*/*.JPEG'))
-    valid_labels = [CLASS_NAMES.index(p.parent.name) for p in valid_paths]
+    # CLASS_NAMES = [d.name for d in Path('/data/imagenet-mini/train').glob('*')]
+    # train_paths = list(Path('/data/imagenet-mini/train').glob('*/*.JPEG'))
+    # train_labels = [CLASS_NAMES.index(p.parent.name) for p in train_paths]
+    # valid_paths = list(Path('/data/imagenet-mini/val').glob('*/*.JPEG'))
+    # valid_labels = [CLASS_NAMES.index(p.parent.name) for p in valid_paths]
     
-    train_data = ImageNet(paths=train_paths,
-                          targs=train_labels,
-                          transform=trs)
-    valid_data = ImageNet(paths=valid_paths,
-                          targs=valid_labels,
-                          transform=trs)
+    # train_data = ImageNet(paths=train_paths,
+    #                       targs=train_labels,
+    #                       transform=trs)
+    # valid_data = ImageNet(paths=valid_paths,
+    #                       targs=valid_labels,
+    #                       transform=trs)
     
     train_loader = DataLoader(train_data,
                               batch_size=128,
