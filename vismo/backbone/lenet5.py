@@ -5,9 +5,12 @@ import torch.nn as nn
 from .base import BaseBackbone
 
 
+__all__ = ['LeNet5']
+
+
 class LeNet5(BaseBackbone):
     def __init__(self,
-                 nc: int = 10,
+                 num_classes: int = 10,
                  ) -> None:
         super().__init__()
         
@@ -27,7 +30,7 @@ class LeNet5(BaseBackbone):
         self.f6 = nn.Linear(in_features=120,
                             out_features=84)
         self.out = nn.Linear(in_features=84,
-                             out_features=nc)
+                             out_features=num_classes)
         
     def forward_feature(self, 
                         x: torch.Tensor,
