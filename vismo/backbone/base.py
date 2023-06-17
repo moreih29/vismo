@@ -47,7 +47,7 @@ class BaseBackbone(nn.Module):
         
         for device in multi_gpus:
             if device < 0 or device >= torch.cuda.device_count():
-                raise RuntimeError(f'Invalid GPU id. cuda:{device} is not available.')
+                raise IndexError(f'Invalid GPU id. cuda:{device} is not available.')
         
         if len(multi_gpus):
             current_device = self.device
