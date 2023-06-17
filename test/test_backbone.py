@@ -1,7 +1,8 @@
 
 from pathlib import Path
+from PIL import Image
 
-import cv2
+import numpy as np
 import torchvision
 
 from vismo.backbone import *
@@ -56,10 +57,12 @@ if __name__ == '__main__':
               },
               valid_loader=test_loader,
               fp16=True,
-              on_after_epoch=callback)
+              on_after_epoch=callback,
+              multi_gpus=[])
     
     paths = Path('data/MNIST/samples').glob('*.png')
-    imgs = [cv2.imread(str(p), 0)[:, :, None] for p in paths]
+    imgs = [np.array(Image.open(p), dtype=np.uint8)[:, :, None]
+            for p in paths]
     imgs = np.stack(imgs)
     outputs = model.predict(imgs)
     print(outputs)
