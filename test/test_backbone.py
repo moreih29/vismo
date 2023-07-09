@@ -39,7 +39,8 @@ class ImageNet(Dataset):
         
 
 if __name__ == '__main__':
-    model = DensNet121(num_classes=10).to('cuda:0')
+    model = VGG16_BN(num_classes=10).to('cuda:0')
+    print(model.device)
     trs = torchvision.transforms.Compose([
         torchvision.transforms.ToTensor(),
         torchvision.transforms.Resize((32, 32),
@@ -68,11 +69,11 @@ if __name__ == '__main__':
     #                       transform=trs)
     
     train_loader = DataLoader(train_data,
-                              batch_size=128,
+                              batch_size=256,
                               shuffle=True,
                               num_workers=4)
     valid_loader = DataLoader(valid_data,
-                             batch_size=128,
+                             batch_size=256,
                              num_workers=4)
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.SGD(model.parameters(),
